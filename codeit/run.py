@@ -138,7 +138,7 @@ def start_streamlit():
         return False
 
 def main():
-    print("Health-Eat 메인 함수 시작")
+    print("Codeit-Part3-5Team 메인 함수 시작")
     
     # print(f"PROJECT_ROOT: {PROJECT_ROOT}")
     # print(f"BACKEND_DIR: {BACKEND_DIR}")
