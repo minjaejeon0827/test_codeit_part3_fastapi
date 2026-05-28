@@ -16,16 +16,17 @@ import requests
 
 def main_page():
     """Streamlit 메인 웹페이지"""
+    # Streamlit 페이지 설정
+    st.set_page_config(
+        page_title="[테스트] 2026-LLM-Project: RFP Summarizer & QA Chatbot", 
+        layout="wide"
+    )
+
+    st.header("[테스트] RFPilot", divider='blue')
+    st.caption("PDF나 한글(HWP) 제안서를 올리면, 챗봇이 핵심만 요약해주고 궁금한 점도 답변해 드려요!")
+
+    
     try:
-        # Streamlit 페이지 설정
-        st.set_page_config(
-            page_title="[테스트] 2026-LLM-Project: RFP Summarizer & QA Chatbot", 
-            layout="wide"
-        )
-
-        st.header("[테스트] RFPilot", divider='blue')
-        st.caption("PDF나 한글(HWP) 제안서를 올리면, 챗봇이 핵심만 요약해주고 궁금한 점도 답변해 드려요!")
-
         
         # 간단한 푸터
         st.markdown("---")
