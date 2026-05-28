@@ -2,7 +2,7 @@
 웹서버 파일
 
 * 파이썬 패키지 설치 명령어
-pip instal streamlit==1.52.2
+pip install streamlit==1.52.2
 pip install fastapi==0.104.1
 pip install uvicorn==0.27.0.post1
 
