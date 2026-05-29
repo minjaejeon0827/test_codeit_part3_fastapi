@@ -18,7 +18,7 @@ from pydantic import (
     Field,
     ValidationError,
     ConfigDict,
-    field_validator,
+    model_validator,
 )
 
 logger = logging.getLogger(__name__)
@@ -40,22 +40,14 @@ class DataConfig(BaseModel):
     """[data] 섹션 - 문서 로딩/분할 설정"""
     model_config = ConfigDict(extra="forbid")
 
-    folder_path: str = "data/files"
-    data_list_path: str = "data/data_list.csv"
+    folder_path: str = "data/raw/files"
+    data_list_path: str = "data/processed/data_list.csv"
     top_k: int = Field(default=5, ge=1, le=100, description="1~100 사이")
     file_type: Literal["hwp", "pdf", "all"] = "all"
     apply_ocr: bool = False
     splitter: Literal["section", "recursive", "token"] = "section"
     chunk_size: int = Field(default=1000, ge=1)
     chunk_overlap: int = Field(default=250, ge=0)
-
-    @field_validator("folder_path", "data_list_path")
-    @classmethod
-    def _path_must_exist(cls, v: str) -> str:
-        """폴더/파일 경로 실재 여부 검사"""
-        if not os.path.exists(v):
-            raise ValueError(f"경로가 존재하지 않습니다: {v}")
-        return v
 
 
 class EmbeddingConfig(BaseModel):
@@ -65,13 +57,6 @@ class EmbeddingConfig(BaseModel):
     embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     db_type: Literal["faiss", "chroma"] = "faiss"
     vector_db_path: str = "data/vector_db"
-
-    @field_validator("vector_db_path")
-    @classmethod
-    def _vector_db_path_must_exist(cls, v: str) -> str:
-        if not os.path.exists(v):
-            raise ValueError(f"벡터 DB 경로가 존재하지 않습니다: {v}")
-        return v
 
 
 class RetrieverConfig(BaseModel):
@@ -96,7 +81,7 @@ class GeneratorConfig(BaseModel):
 
 
 class AppConfig(BaseModel):
-    """최상위 통합 설정 - config.yaml의 루트"""
+    """최상위 통합 설정 - 경로 검사를 여기서 통합 처리"""
     model_config = ConfigDict(extra="forbid")
 
     settings: SettingsConfig = Field(default_factory=SettingsConfig)
@@ -105,6 +90,35 @@ class AppConfig(BaseModel):
     retriever: RetrieverConfig = Field(default_factory=RetrieverConfig)
     generator: GeneratorConfig = Field(default_factory=GeneratorConfig)
     chat_history: list = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _resolve_and_check_paths(self):
+        """
+        project_root 기준 상대 경로 -> 절대 경로 변환
+        - 모든 섹션이 채워진 후에 실행되므로 project_root 알 수 있음
+        - 입력 경로 없으면 경고만 (실행은 계속)
+        - 출력 경로(vector_db)는 자동 생성
+        """
+        root = self.settings.project_root or os.getcwd()
+
+        def resolve(p: str) -> str:
+            return p if os.path.isabs(p) else os.path.normpath(os.path.join(root, p))
+
+        # 1) 상대경로 → 절대경로 변환 (가장 중요!)
+        self.data.folder_path = resolve(self.data.folder_path)
+        self.data.data_list_path = resolve(self.data.data_list_path)
+        self.embedding.vector_db_path = resolve(self.embedding.vector_db_path)
+
+        # 2) 입력 경로 검사 (없으면 경고만, 에러 X)
+        if not os.path.exists(self.data.folder_path):
+            print(f"⚠️  [Config] data.folder_path가 없습니다: {self.data.folder_path}")
+        if not os.path.exists(self.data.data_list_path):
+            print(f"⚠️  [Config] data.data_list_path가 없습니다: {self.data.data_list_path}")
+
+        # 3) 출력 경로 자동 생성
+        os.makedirs(self.embedding.vector_db_path, exist_ok=True)
+
+        return self
 
 
 # ============================================================
