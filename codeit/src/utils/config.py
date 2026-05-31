@@ -56,7 +56,7 @@ class EmbeddingConfig(BaseModel):
 
     embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     db_type: Literal["faiss", "chroma"] = "faiss"
-    vector_db_path: str = "data/vector_db"
+    vector_store_path: str = "data/vector_store"
 
 
 class RetrieverConfig(BaseModel):
@@ -97,7 +97,7 @@ class AppConfig(BaseModel):
         project_root 기준 상대 경로 -> 절대 경로 변환
         - 모든 섹션이 채워진 후에 실행되므로 project_root 알 수 있음
         - 입력 경로 없으면 경고만 (실행은 계속)
-        - 출력 경로(vector_db)는 자동 생성
+        - 출력 경로(vector_store)는 자동 생성
         """
         root = self.settings.project_root or os.getcwd()
 
@@ -107,7 +107,7 @@ class AppConfig(BaseModel):
         # 1) 상대경로 → 절대경로 변환 (가장 중요!)
         self.data.folder_path = resolve(self.data.folder_path)
         self.data.data_list_path = resolve(self.data.data_list_path)
-        self.embedding.vector_db_path = resolve(self.embedding.vector_db_path)
+        self.embedding.vector_store_path = resolve(self.embedding.vector_store_path)
 
         # 2) 입력 경로 검사 (없으면 경고만, 에러 X)
         if not os.path.exists(self.data.folder_path):
@@ -116,7 +116,7 @@ class AppConfig(BaseModel):
             print(f"⚠️  [Config] data.data_list_path가 없습니다: {self.data.data_list_path}")
 
         # 3) 출력 경로 자동 생성
-        os.makedirs(self.embedding.vector_db_path, exist_ok=True)
+        os.makedirs(self.embedding.vector_store_path, exist_ok=True)
 
         return self
 
