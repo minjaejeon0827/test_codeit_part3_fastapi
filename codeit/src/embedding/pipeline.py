@@ -91,12 +91,12 @@ def run(
 
     embed_config = config['embedding']
     db_type = embed_config['db_type'].lower()
-    vector_db_path = os.path.join(PROJECT_ROOT, embed_config.get("vector_db_path", "data"))
+    vector_store_path = os.path.join(PROJECT_ROOT, embed_config.get("vector_store_path", "data"))
 
-    if not isinstance(vector_db_path, str) or vector_db_path.strip() == "":
-        raise ValueError("❌ (embedding.embedding_main.vector_db_path) 잘못된 vector_db_path 경로")
+    if not isinstance(vector_store_path, str) or vector_store_path.strip() == "":
+        raise ValueError("❌ (embedding.embedding_main.vector_store_path) 잘못된 vector_store_path 경로")
 
-    os.makedirs(vector_db_path, exist_ok=True)
+    os.makedirs(vector_store_path, exist_ok=True)
     index_name = generate_index_name(config)
     index_name = index_name + f"_{session_id}"
 
@@ -104,12 +104,12 @@ def run(
         raise ValueError("❌ (embedding.embedding_main.index_name) 잘못된 index_name 생성")
 
     if db_type == "faiss":
-        faiss_file = os.path.join(vector_db_path, f"{index_name}.faiss")
-        pkl_file = os.path.join(vector_db_path, f"{index_name}.pkl")
+        faiss_file = os.path.join(vector_store_path, f"{index_name}.faiss")
+        pkl_file = os.path.join(vector_store_path, f"{index_name}.pkl")
         db_exists = os.path.exists(faiss_file) and os.path.exists(pkl_file)
 
     elif db_type == "chroma":
-        chroma_dir = os.path.join(vector_db_path, index_name)
+        chroma_dir = os.path.join(vector_store_path, index_name)
         sqlite_path = os.path.join(chroma_dir, "chroma.sqlite3")
 
         has_sqlite = os.path.exists(sqlite_path)
@@ -130,10 +130,10 @@ def run(
         raise ValueError(f"❌ (embedding.embedding_main.db_type) 지원하지 않는 DB 타입입니다: {db_type}")
 
     if is_save:
-        vector_store = create_vector_store(chunks, embeddings, index_name, db_type, output_path=vector_db_path)
+        vector_store = create_vector_store(chunks, embeddings, index_name, db_type, output_path=vector_store_path)
         print("✅ Vector DB 생성 완료")
     else:
-        vector_store = load_vector_store(vector_db_path, embeddings, index_name, db_type)
+        vector_store = load_vector_store(vector_store_path, embeddings, index_name, db_type)
         print("✅ Vector DB 로드 완료")
 
     return vector_store
