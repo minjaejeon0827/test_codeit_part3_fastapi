@@ -15,7 +15,7 @@ data:
 embedding:
     embed_model: "openai"  # 임베딩 생성 모델: "openai" 또는 HuggingFace 모델명 (예: "nlpai-lab/KoE5")
     db_type: "faiss"  # 벡터 DB 종류: "faiss" 또는 "chroma"
-    vector_db_path: "data/vector_db"  # 벡터 DB 저장 경로
+    vector_store_path: "data/vector_store"  # 벡터 DB 저장 경로
 
 retriever:
     search_type: "hybrid"  # 검색 방식: "similarity" 또는 "hybrid"(유사도+재정렬)
