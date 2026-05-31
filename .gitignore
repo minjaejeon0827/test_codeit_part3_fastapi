@@ -351,7 +351,13 @@ paket-files/
 # CodeRush personal settings
 .cr/personal
 
+# .env
+.env
+.env.*
+!.env.example
+
 # Python Tools for Visual Studio (PTVS)
+venv/
 __pycache__/
 *.pyc
 
