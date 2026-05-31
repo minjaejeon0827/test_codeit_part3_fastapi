@@ -17,12 +17,24 @@ from src.utils.cache_setup import setup_cache_dirs
 setup_cache_dirs()  # 먼저 호출!
 
 from fastapi import FastAPI
+
+
+from src.generator.model_loader import load_generation_model
 # from src.generator.hf_generator import load_hf_model
 # from src.generator.openai_generator import load_openai_model
-
+from src.utils.config import load_config
+from src.settings import PROJECT_ROOT
 
 import logging
 logger = logging.getLogger(__name__)
+
+# 앱 시작 시 모델 1회 로딩
+config = load_config(PROJECT_ROOT)
+model_info = load_generation_model(
+    config["generator"]["model_type"],
+    config["generator"]["model_name"],
+    config["generator"]["use_quantization"],
+)
 
 app = FastAPI(title="Codeit API Server")
 
@@ -41,4 +53,20 @@ async def root():
         
     except Exception as e:
         logger.error(f"❌ 서버 연결 상태 오류: {e}")
+        return {"status": "error", "message": str(e)}
+    
+@app.post("/reload-model")
+async def reload_model():
+    global model_info
+    try:
+        return {"status": "success", "message": "[테스트] 모델 리로드 구현 예정"}
+        
+        # 아래 주석친 코드 추후 구혀 ㄴ예정
+        # model_info = load_generation_model(
+        #     config["generator"]["model_type"],
+        #     config["generator"]["model_name"],
+        #     config["generator"]["use_quantization"],
+        # )
+        # return {"status": "success", "message": "모델 리로드 완료"}
+    except Exception as e:
         return {"status": "error", "message": str(e)}
