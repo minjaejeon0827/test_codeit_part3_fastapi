@@ -14,9 +14,6 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-# .env 파일 로딩 (이 파일이 import되는 시점에 환경변수 채워짐)
-load_dotenv()
-
 # === 경로 관련 (환경 무관, 코드에서 결정) ===
 # 프로젝트 루트 디렉토리 설정
 # __file__이 src/settings.py에 있으므로, parent.parent를 해야 프로젝트 루트가 됩니다.
@@ -25,7 +22,7 @@ PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 BACKEND_DIR  = f"{PROJECT_ROOT}/src"
 FRONTEND_DIR = f"{PROJECT_ROOT}/views"
 
-# === .env 파일 로딩 ===
+# === .env 파일 로딩 (이 파일이 import되는 시점에 환경변수 채워짐) ===
 _dotenv_path = Path(PROJECT_ROOT) / ".env"
 if _dotenv_path.exists():
     load_dotenv(dotenv_path=_dotenv_path)
