@@ -61,7 +61,7 @@ async def reload_model():
     try:
         return {"status": "success", "message": "[테스트] 모델 리로드 구현 예정"}
         
-        # 아래 주석친 코드 추후 구혀 ㄴ예정
+        # 아래 주석친 코드 추후 구현 예정(2026.05.31 minjae)
         # model_info = load_generation_model(
         #     config["generator"]["model_type"],
         #     config["generator"]["model_name"],
