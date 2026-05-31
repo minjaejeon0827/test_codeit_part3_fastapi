@@ -13,7 +13,16 @@ uvicorn src.server:app --reload
 참고: https://gemini.google.com/app/b27729891de22455?hl=ko
 """
 
+from src.utils.cache_setup import setup_cache_dirs 
+setup_cache_dirs()  # 먼저 호출!
+
 from fastapi import FastAPI
+# from src.generator.hf_generator import load_hf_model
+# from src.generator.openai_generator import load_openai_model
+
+
+import logging
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Codeit API Server")
 
@@ -31,4 +40,5 @@ async def root():
         }
         
     except Exception as e:
+        logger.error(f"❌ 서버 연결 상태 오류: {e}")
         return {"status": "error", "message": str(e)}
