@@ -376,6 +376,7 @@ def main_page():
 
                 try:
                     with st.spinner("🤖 답변 생성 중..."):
+                        # 아래 주석친 코드 추후 구현 예정(2026.05.31 minjae)
                         # st.info("❗ [테스트] 답변 생성 기능 추후 구현 예정!")
                         # response = requests.post(
                         #     CHAT_URL,
