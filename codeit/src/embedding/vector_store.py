@@ -4,6 +4,7 @@
     pip install -U langsmith
     pip install langchain-chroma
     pip install langchain-core
+    pip install faiss-cpu
 
     pip install langchain-openai
     pip install langchain-community
