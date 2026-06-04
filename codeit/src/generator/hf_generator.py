@@ -108,7 +108,7 @@ class HFGenerator(BaseGenerator):
         # 안전장치: 모델 로딩 안 됐으면 에러
         if self.model is None or self.tokenizer is None:
             raise RuntimeError(
-                "❌ HFGenerator.generate(): load()를 먼저 호출해주세요."
+                "❌ HFGenerator.generate(): load() 먼저 호출해주세요."
             )
         
         # LangSmith 추적 시작 (디버깅용 발자국 기록)
