@@ -4,12 +4,13 @@ openai_generator.py - OpenAI 모델 기반 답변 생성기
 BaseGenerator 클래스 상속받아 OpenAI Chat Completions API로 
 답변 생성하는 전략 패턴 (Strategy Pattern) 기반 클래스.
 
-전략 패턴에서의 위치:
+전략 패턴 (Strategy Pattern)에서의 위치:
     BaseGenerator (Strategy 인터페이스)
-        ├── HFGenerator         (구체적 전략 1)
-        ├── OpenAIGenerator     ← 이 파일 (구체적 전략 2)
-        ├── ClaudeGenerator     (구체적 전략 3)
-        └── GeminiGenerator     (구체적 전략 4)
+        ├── HFGenerator         (로컬 GPU)
+        ├── OpenAIGenerator     ← 이 파일 (유료 API)
+        ├── ClaudeGenerator     (유료 API)
+        ├── GeminiGenerator     (무료 티어 있음)
+        └── GroqGenerator       (무료 + 초고속)
 
 설치 필요 패키지:
     pip install openai
@@ -21,20 +22,6 @@ BaseGenerator 클래스 상속받아 OpenAI Chat Completions API로
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 """
 
-"""
-openai_generator.py - OpenAI 모델 기반 답변 생성기
-
-BaseGenerator를 상속받아 OpenAI Chat Completions API로 
-답변을 생성하는 전략(Strategy) 구현체입니다.
-
-전략 패턴에서의 위치:
-    BaseGenerator (Strategy 인터페이스)
-        ├── HFGenerator         (구체적 전략 1)
-        ├── OpenAIGenerator     ← 이 파일 (구체적 전략 2)
-        ├── ClaudeGenerator     (구체적 전략 3)
-        └── GeminiGenerator     (구체적 전략 4)
-"""
-
 import os
 from typing import Dict
 
@@ -42,7 +29,6 @@ from openai import OpenAI
 from langsmith import trace
 
 from src.generator.base import BaseGenerator
-
 
 class OpenAIGenerator(BaseGenerator):
     """
