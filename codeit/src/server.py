@@ -1,10 +1,21 @@
 """
 웹서버 파일
 
-* 파이썬 패키지 설치 명령어
-pip install streamlit==1.52.2
-pip install fastapi==0.104.1
-pip install uvicorn==0.27.0.post1
+파이썬 패키지 설치 명령어:
+    pip install streamlit==1.52.2
+    pip install fastapi==0.104.1
+    pip install uvicorn==0.27.0.post1
+
+업그레이드 필요 패키지:
+    참고: pip install google-genai 패키지 설치 시 오류 발생해서 fastapi, uvicorn 패키지 업그레이드 처리(2026.06.05 minjae)
+    1) FastAPI 업그레이드
+    pip install --upgrade fastapi
+
+    2) 함께 사용하는 uvicorn도 같이 업그레이드 (호환성 ↑)
+    pip install --upgrade uvicorn
+
+    3) 설치 확인
+    pip show fastapi
 
 * fastapi 웹서버 터미널 실행 명령어
 uvicorn src.server:app --reload
