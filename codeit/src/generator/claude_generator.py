@@ -1,8 +1,16 @@
 """
 claude_generator.py - Anthropic Claude 모델 기반 답변 생성기
 
-BaseGenerator 클래스 상속받아 Anthropic Messages API로 
+BaseGenerator 클래스 상속받아 Anthropic Messages API로
 답변 생성하는 전략 패턴 (Strategy Pattern) 기반 클래스.
+
+전략 패턴 (Strategy Pattern)에서의 위치:
+    BaseGenerator (Strategy 인터페이스)
+        ├── HFGenerator         (로컬 GPU)
+        ├── OpenAIGenerator     (유료 API)
+        ├── ClaudeGenerator     ← 이 파일 (유료 API)
+        ├── GeminiGenerator     (무료 티어 있음)
+        └── GroqGenerator       (무료 + 초고속)
 
 *  OpenAI와 주요 차이점:
     - API 메서드: client.messages.create() (vs OpenAI: client.chat.completions.create())
