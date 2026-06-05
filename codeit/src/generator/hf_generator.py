@@ -6,10 +6,11 @@ BaseGenerator 클래스 상속받아 HuggingFace 트랜스포머 모델로
 
 전략 패턴 (Strategy Pattern)에서의 위치:
     BaseGenerator (Strategy 인터페이스)
-        ├── HFGenerator       ← 이 파일 (구체적 전략 1)
-        ├── OpenAIGenerator   ← (구체적 전략 2)
-        ├── ClaudeGenerator   ← (미래 추가 가능)
-        └── GeminiGenerator   ← (미래 추가 가능)
+        ├── HFGenerator         ← 이 파일 (로컬 GPU)
+        ├── OpenAIGenerator     (유료 API)
+        ├── ClaudeGenerator     (유료 API)
+        ├── GeminiGenerator     (무료 티어 있음)
+        └── GroqGenerator       (무료 + 초고속)
 
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
