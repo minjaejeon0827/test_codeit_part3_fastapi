@@ -8,7 +8,7 @@ python run.py
 sys.exit(1) 함수
 참고: https://docs.python.org/ko/3/library/sys.html#sys.exit
 
-* AI 도구 활용
+* Claude AI 도구 활용
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 
 * Gemini AI 도구 활용
