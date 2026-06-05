@@ -5,6 +5,14 @@ base.py - 모든 LLM 생성기 공통 인터페이스 (추상 클래스)
 - 모든 생성기가 따라야 할 표준 규칙(공통 인터페이스) 정의
 - HFGenerator, OpenAIGenerator, ClaudeGenerator, GeminiGenerator 등은 해당 클래스 상속받아 구현
 
+전략 패턴 (Strategy Pattern)에서의 위치:
+    BaseGenerator      ← 이 파일 (Strategy 인터페이스)
+        ├── HFGenerator         (로컬 GPU)
+        ├── OpenAIGenerator     (유료 API)
+        ├── ClaudeGenerator     (유료 API)
+        ├── GeminiGenerator     (무료 티어 있음)
+        └── GroqGenerator       (무료 + 초고속)
+
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
 
