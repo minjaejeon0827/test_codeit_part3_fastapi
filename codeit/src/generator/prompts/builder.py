@@ -1,5 +1,5 @@
 """
-builder.py - PromptBuilder 클래스 (Builder 역할)
+builder.py - PromptBuilder 클래스(Builder 역할)
 
 빌더 패턴(Builder Pattern) 'Builder' = 부품을 실제로 조립하는 작업자.
 
@@ -24,7 +24,6 @@ from langchain_core.documents import Document
 
 from src.generator.prompts.prompt import Prompt
 from src.generator.prompts.templates import get_template
-
 
 class PromptBuilder:
     """
