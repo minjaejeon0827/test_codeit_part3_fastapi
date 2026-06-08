@@ -9,6 +9,8 @@ prompt.py - Prompt 클래스 (Product 역할)
 """
 
 from typing import List, Dict, Any
+import logging
+logger = logging.getLogger(__name__)
 
 class Prompt:
     """
@@ -43,13 +45,13 @@ class Prompt:
     
     def show(self) -> None:
         """완성된 프롬프트에 어떤 부품이 들어있는지 출력 (디버깅용)."""
-        print("=" * 50)
-        print("📦 Prompt 부품 목록:")
+        logger.info("=" * 50)
+        logger.info("📦 Prompt 부품 목록:")
         for key, value in self.parts.items():
             preview = str(value)[:80] + "..." if len(str(value)) > 80 else value
-            print(f"  - {key}: {preview}")
-        print(f"  - final_text 길이: {len(self.final_text)} 글자")
-        print("=" * 50)
+            logger.info(f"  - {key}: {preview}")
+        logger.info(f"  - final_text 길이: {len(self.final_text)} 글자")
+        logger.info("=" * 50)
     
     def __str__(self) -> str:
         """str(prompt) 시 최종 텍스트 반환."""
