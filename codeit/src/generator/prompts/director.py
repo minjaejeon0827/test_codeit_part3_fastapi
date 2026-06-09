@@ -13,6 +13,9 @@ director.py - PromptDirector 클래스(Director 역할)
    rag_prompt = director.make_rag_prompt(question, docs, ...)
    summary_prompt = director.make_summary_prompt(history_text)
 
+* 파이썬 디자인 패턴 -> 생성 패턴 -> 빌더 패턴 (Builder Pattern)
+참고: https://wikidocs.net/252293
+
 * Claude AI 도구 활용
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 """
