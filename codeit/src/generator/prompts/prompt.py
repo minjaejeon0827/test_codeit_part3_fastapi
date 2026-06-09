@@ -4,12 +4,16 @@ prompt.py - Prompt 클래스 (Product 역할)
 빌더 패턴(Builder Pattern)에서 'Product' 역할을 담당하는 클래스.
 빌더가 조립한 최종 결과물(완성된 프롬프트) 표현.
 
+* 파이썬 디자인 패턴 -> 생성 패턴 -> 빌더 패턴 (Builder Pattern)
+참고: https://wikidocs.net/252293
+
 * Claude AI 도구 활용
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 """
 
-from typing import List, Dict, Any
 import logging
+from typing import List, Dict, Any
+
 logger = logging.getLogger(__name__)
 
 class Prompt:
