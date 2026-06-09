@@ -16,6 +16,7 @@ chat_summary.py - 대화 요약 워크플로우
 
 import logging
 from typing import Any, Dict, List
+from langsmith import traceable
 
 # 내부 임포트
 from src.generator.base import BaseGenerator  # 타입 힌트
@@ -64,8 +65,9 @@ class ChatSummaryWorkflow(BaseWorkflow):
 
 # ============================================================
 # 외부 호출용 헬퍼 함수
-# ============================================================
 # 함수명 변경: load_chat_history → summarize_chat_history
+# ============================================================
+@traceable(name="chat_summary_pipeline")
 def summarize_chat_history(
     chat_history_list: List[Dict],
     generator: BaseGenerator,
