@@ -14,6 +14,9 @@ builder.py - PromptBuilder 클래스(Builder 역할)
         .build()
     )
 
+* 파이썬 디자인 패턴 -> 생성 패턴 -> 빌더 패턴 (Builder Pattern)
+참고: https://wikidocs.net/252293
+
 * Claude AI 도구 활용
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 """
