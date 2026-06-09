@@ -3,6 +3,9 @@ templates.py - 프롬프트 템플릿 저장소
 
 프롬프트 템플릿 수정 시 해당 파일 작성 필수.
 
+* 파이썬 디자인 패턴 -> 생성 패턴 -> 빌더 패턴 (Builder Pattern)
+참고: https://wikidocs.net/252293
+
 * Claude AI 도구 활용
 참고: https://claude.ai/chat/658340cd-271c-4cc0-8550-39c500607db3
 """
