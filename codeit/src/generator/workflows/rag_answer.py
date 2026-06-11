@@ -4,6 +4,9 @@ rag_answer.py - RAG 답변 생성 워크플로우
 템플릿 메소드 패턴 (Template Method Pattern) 또 다른 'ConcreteClass'.
 같은 4단계 흐름을 따르지만, 빈칸은 RAG 답변에 맞게 채움.
 
+* LangChain + LangGraph AI 에이전트 개발
+참고: https://youtu.be/3My9sphTxtk?si=nFA9vXJOj6dGzi3b
+
 * 파이썬 디자인 패턴 -> 행위 패턴 -> 템플릿 메소드 패턴 (Template Method Pattern)
 참고: https://wikidocs.net/252293
 
