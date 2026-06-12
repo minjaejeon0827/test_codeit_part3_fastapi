@@ -49,12 +49,13 @@ class DataConfig(BaseModel):
     chunk_size: int = Field(default=1000, ge=1)
     chunk_overlap: int = Field(default=250, ge=0)
 
-
 class EmbeddingConfig(BaseModel):
     """[embedding] 섹션 - 임베딩/벡터DB 설정"""
     model_config = ConfigDict(extra="forbid")
 
+    embed_type: Literal["openai", "huggingface", "claude", "gemini", "groq"] = "openai"
     embed_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    
     vector_store_type: Literal["faiss", "chroma"] = "faiss"
     vector_store_path: str = "data/vector_store"
 
@@ -111,9 +112,9 @@ class AppConfig(BaseModel):
 
         # 2) 입력 경로 검사 (없으면 경고만, 에러 X)
         if not os.path.exists(self.data.folder_path):
-            print(f"⚠️  [Config] data.folder_path가 없습니다: {self.data.folder_path}")
+            logger.warning(f"⚠️  [Config] data.folder_path가 없습니다: {self.data.folder_path}")
         if not os.path.exists(self.data.data_list_path):
-            print(f"⚠️  [Config] data.data_list_path가 없습니다: {self.data.data_list_path}")
+            logger.warning(f"⚠️  [Config] data.data_list_path가 없습니다: {self.data.data_list_path}")
 
         # 3) 출력 경로 자동 생성
         os.makedirs(self.embedding.vector_store_path, exist_ok=True)
