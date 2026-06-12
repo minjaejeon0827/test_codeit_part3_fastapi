@@ -19,6 +19,9 @@ BaseGenerator 클래스 상속받아 Anthropic Messages API로
 
 설치 필요 패키지:
     pip install anthropic
+
+* Claude API Key 발급 및 사용 방법
+참고: https://wikidocs.net/339169
     
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
