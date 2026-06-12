@@ -5,7 +5,7 @@ BaseEmbedding 클래스 상속받아 OpenAI 임베딩 모델 사용.(text-embedd
 전략 패턴 (Strategy Pattern) 기반 클래스.
 
 전략 패턴(Strategy Pattern)에서의 위치:
-    BaseEmbedding     ← 이 파일 (Strategy 인터페이스)
+    BaseEmbedding               (Strategy 인터페이스)
         ├── HFEmbedding         (로컬 GPU)
         ├── OpenAIEmbedding     ← 이 파일 (유료 API)
         ├── ClaudeEmbedding     (필요 시 구현 예정!)
@@ -14,6 +14,9 @@ BaseEmbedding 클래스 상속받아 OpenAI 임베딩 모델 사용.(text-embedd
 
 설치 필요 패키지:
     pip install openai
+  
+플랫폼별 임베딩 모델 종류 
+참고: https://docs.langchain.com/oss/python/integrations/embeddings#top-integrations
     
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
@@ -42,6 +45,13 @@ class OpenAIEmbedding(BaseEmbedding):
        - 차원: 3072 (text-embedding-3-large 기준)
     """
     
+    # 차원 매핑표 (OpenAI 공식 문서 기준)
+    _DIMENSION_MAP = {
+        "text-embedding-3-large": 3072,
+        "text-embedding-3-small": 1536,
+        "text-embedding-ada-002": 1536,
+    }
+    
     def __init__(self):
         """초기화 시 모델은 None으로 시작."""
         self.model = None
@@ -66,11 +76,10 @@ class OpenAIEmbedding(BaseEmbedding):
             )
         
         # 2) 모델 이름 결정 (기본: text-embedding-3-large)
-        # TODO: 필요 시 config.yaml 파일과 같이 아래 모델 이름 결정 로직 수정 예정(2026.06.09 minjae)
-        self.model_name = config["embedding"].get(
-            "openai_model_name", 
-            "text-embedding-3-large",
-        )
+        self.model_name = config["embedding"]["embed_name"]
+        
+        # embed_model_name = config["embedding"]["embed_name"]
+        # OpenAIEmbeddings(model="text-embedding-3-large", openai_api_key=api_key)
         
         # 3) LangChain OpenAIEmbeddings 객체 생성
         self.model = OpenAIEmbeddings(
@@ -82,9 +91,16 @@ class OpenAIEmbedding(BaseEmbedding):
     def get_model(self) -> OpenAIEmbeddings:
         """초기화 된 LangChain OpenAIEmbeddings 객체 반환."""
         if self.model is None:
-            raise RuntimeError("❌ load()를 먼저 호출해주세요.")
+            raise RuntimeError("❌ load() 먼저 호출해주세요.")
         return self.model
     
     def get_dimension(self) -> int:
-        """text-embedding-3-large 차원."""
-        return 3072
+        """모델별 차원 반환 (매핑표 사용)."""
+        if self.model_name in self._DIMENSION_MAP:
+            return self._DIMENSION_MAP[self.model_name]
+        
+        # 매핑표에 없으면 동적 계산 (Fallback)
+        logger.warning(
+            f"⚠️ 모델 '{self.model_name}'의 차원 정보 없음 → 동적 계산"
+        )
+        return len(self.model.embed_query("hello world"))
