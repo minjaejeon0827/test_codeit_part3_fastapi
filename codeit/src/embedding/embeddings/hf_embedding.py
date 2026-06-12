@@ -52,7 +52,7 @@ class HFEmbedding(BaseEmbedding):
         HuggingFace 임베딩 모델 로딩.
         
         Args:
-            config: config["embedding"]["embed_model"] 사용 (예: 'nlpai-lab/KoE5')
+            config: config["embedding"]["embed_name"] 사용 (예: 'nlpai-lab/KoE5')
         """
         
         self.model_name = config["embedding"]["embed_name"]
