@@ -1,12 +1,12 @@
 """
-factory.py - 생성기 객체 생성 담당하는 팩토리
+factory.py - 답변 생성기 객체 생성 팩토리
 
 팩토리 메소드 패턴(Factory Method Pattern):
     - model_type 문자열만 받으면 적절한 Generator 객체 생성 및 반환
     - 호출자는 어떤 클래스가 생성되는지 신경 쓸 필요 없음
     - 새 모델 추가 시 _GENERATORS 딕셔너리 한 줄만 추가!
 
-파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
+파이썬 디자인 패턴 -> 생성 패턴 -> 팩토리 메소드 패턴(Factory Method Pattern)
 참고: https://wikidocs.net/252293
 
 * Claude AI 도구 활용
@@ -36,8 +36,14 @@ _GENERATORS: Dict[str, type] = {
 def create_generator(config: Dict) -> BaseGenerator:
     """
     config에 따라 적절한 Generator 객체 생성 및 로딩까지 끝낸 후 반환.
+    
+    Args:
+        config: 프로젝트 설정 딕셔너리
+    
+    Returns:
+        load() 완료된 BaseGenerator 클래스 객체
     """
-    model_type = config["generator"]["model_type"].lower()
+    model_type = config["generator"]["model_type"].lower().strip()
     
     if model_type not in _GENERATORS:
         supported = list(_GENERATORS.keys())
