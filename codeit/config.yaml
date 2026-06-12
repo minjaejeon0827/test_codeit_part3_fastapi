@@ -1,8 +1,8 @@
-settings:
+settings:  # 프로젝트
     verbose: False  # 실행 중 상세 로그 출력 여부 (True 시 자세한 로그 출력)
     project_root: ""  # 프로젝트 루트 경로 (비워두면 현재 디렉토리 기준)
 
-data:
+data:  # 데이터
     folder_path: "data/raw/files"  # 원본 문서가 저장된 폴더 경로
     data_list_path: "data/processed/data_list.csv"  # 처리할 파일 목록 CSV 경로
     top_k: 5  # 검색 시 최대 반환할 문서 수 (1~100 사이 권장)
@@ -12,20 +12,20 @@ data:
     chunk_size: 1000  # 분할된 텍스트 청크의 최대 길이 (토큰 또는 문자 단위)
     chunk_overlap: 250  # 청크 간 중첩 길이 (정보 손실 방지용)
 
-embedding:
-    embed_type: "openai"                       # 임베딩 생성 모델 유형
-    embed_name: "text-embedding-3-large"       # 임베딩 생성 모델 이름: HuggingFace 모델명 (예: "nlpai-lab/KoE5")
+embedding:  # 임베딩
+    embed_type: "openai"                       # 제공업체: "openai", "huggingface" 등.
+    embed_name: "text-embedding-3-large"       # 모델 이름: HuggingFace 모델명 (예: "nlpai-lab/KoE5")
     vector_store_type: "faiss"                 # 벡터 DB 종류: "faiss" 또는 "chroma"
     vector_store_path: "data/vector_store"     # 벡터 DB 저장 경로
 
-retriever:
+retriever:  # 검색기
     search_type: "hybrid"  # 검색 방식: "similarity" 또는 "hybrid"(유사도+재정렬)
     query: ""  # 사용자 입력 질문 (빈 문자열로 두고 UI에서 입력 받는 경우)
     top_k: 10  # 검색 시 상위 문서 개수
     rerank: True  # 재정렬 사용 여부 (True 시 CrossEncoder 등으로 재정렬 수행)
     rerank_top_k: 5  # 재정렬 후 최종 반환할 문서 수
 
-generator:
+generator:  # 생성기
     model_type: "openai"  # 응답 생성 모델 타입: "openai" 또는 "huggingface"
     model_name: "gpt-4.1-nano"  # 사용할 모델 이름 (예: "gpt-4.1-nano", "Markr-AI/Gukbap-Qwen2.5-7B")
     max_length: 512  # 생성 텍스트 최대 길이
