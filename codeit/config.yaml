@@ -13,9 +13,10 @@ data:
     chunk_overlap: 250  # 청크 간 중첩 길이 (정보 손실 방지용)
 
 embedding:
-    embed_model: "openai"  # 임베딩 생성 모델: "openai" 또는 HuggingFace 모델명 (예: "nlpai-lab/KoE5")
-    db_type: "faiss"  # 벡터 DB 종류: "faiss" 또는 "chroma"
-    vector_store_path: "data/vector_store"  # 벡터 DB 저장 경로
+    embed_type: "openai"                       # 임베딩 생성 모델 유형
+    embed_name: "text-embedding-3-large"       # 임베딩 생성 모델 이름: HuggingFace 모델명 (예: "nlpai-lab/KoE5")
+    vector_store_type: "faiss"                 # 벡터 DB 종류: "faiss" 또는 "chroma"
+    vector_store_path: "data/vector_store"     # 벡터 DB 저장 경로
 
 retriever:
     search_type: "hybrid"  # 검색 방식: "similarity" 또는 "hybrid"(유사도+재정렬)
