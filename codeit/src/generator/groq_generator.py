@@ -45,7 +45,6 @@ from langsmith import trace
 
 from src.generator.base import BaseGenerator
 
-
 class GroqGenerator(BaseGenerator):
     """
     Groq API 사용한 답변 생성기 (LLaMA 3.1 8B Instant 등).
