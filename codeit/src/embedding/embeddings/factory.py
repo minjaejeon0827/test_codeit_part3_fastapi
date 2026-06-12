@@ -35,7 +35,7 @@ def create_embedding(config: Dict) -> BaseEmbedding:
     config 딕셔너리 따라 적절한 Embedding 객체 생성 및 로딩 완료 후 반환.
     
     * 사용 예시:
-        config = {"embedding": {"embed_model": "openai", ...}}
+        config = {"embedding": {"embed_type": "openai", ...}}
         embedding = create_embedding(config)
         model = embedding.get_model()
     
