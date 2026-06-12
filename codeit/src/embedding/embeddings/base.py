@@ -7,11 +7,14 @@ base.py - 모든 임베딩 모델 공통 인터페이스 (추상 클래스)
 
 전략 패턴(Strategy Pattern)에서의 위치:
     BaseEmbedding      ← 이 파일 (Strategy 인터페이스)
-        ├── HFEmbedding
-        ├── OpenAIEmbedding
-        ├── ClaudeEmbedding (필요 시 구현 예정!)
-        ├── GeminiEmbedding (필요 시 구현 예정!)
-        └── GroqEmbedding (필요 시 구현 예정!)
+        ├── HFEmbedding         (로컬 GPU)
+        ├── OpenAIEmbedding     (유료 API)
+        ├── ClaudeEmbedding     (필요 시 구현 예정!)
+        ├── GeminiEmbedding     (필요 시 구현 예정!)
+        └── GroqEmbedding       (필요 시 구현 예정!)
+
+플랫폼별 임베딩 모델 종류
+참고: https://docs.langchain.com/oss/python/integrations/embeddings#top-integrations
 
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
@@ -42,7 +45,7 @@ class BaseEmbedding(ABC):
         임베딩 모델 초기화 (자식 클래스가 반드시 구현).
         
         Args:
-            config: 설정 딕셔너리 (embed_model 등 포함)
+            config: 설정 딕셔너리 (embed_type 등 포함)
         """
         pass
     
