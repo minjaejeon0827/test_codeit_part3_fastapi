@@ -60,7 +60,7 @@ def create_vector_store(
     all_chunks: List[Document],
     embeddings: Union[HuggingFaceEmbeddings, OpenAIEmbeddings],
     index_name: str,
-    db_type: str = "faiss",
+    vector_store_type: str = "faiss",
     is_save: bool = True,
     output_path: str = ""
 ) -> Union[FAISS, Chroma]:
@@ -71,7 +71,7 @@ def create_vector_store(
         all_chunks (List[Document]): 임베딩할 문서 청크 리스트
         embeddings (Union[HuggingFaceEmbeddings, OpenAIEmbeddings]): 초기화된 임베딩 객체
         index_name (str): 저장할 벡터 DB 인덱스 이름
-        db_type (str): 벡터 DB 유형 ('faiss' 또는 'chroma')
+        vector_store_type (str): 벡터 DB 유형 ('faiss' 또는 'chroma')
         is_save (bool): DB 저장 여부 (faiss만 해당)
         output_path (str): 벡터 DB 저장 경로 (기본값: 프로젝트 루트/data/vector_db)
 
@@ -94,7 +94,7 @@ def create_vector_store(
     if not output_path:
         raise ValueError("❌ [Value] (vector_db.create_vector_store.output_path) 빈 output_path 인자")
 
-    db_type = db_type.lower()
+    vector_store_type = vector_store_type.lower()
 
     print(f"📌 [Info] (vector_db.create_vector_store) 임베딩 모델: {embeddings.__class__.__name__}")
 
@@ -106,8 +106,8 @@ def create_vector_store(
     try:
         os.makedirs(output_path, exist_ok=True)
 
-        if db_type == "faiss":
-            print(f"📌 [Info] (vector_db.create_vector_store) 벡터 DB 유형: {db_type}")
+        if vector_store_type == "faiss":
+            print(f"📌 [Info] (vector_db.create_vector_store) 벡터 DB 유형: {vector_store_type}")
             vector_store = FAISS(
                 embedding_function=embeddings,
                 index=faiss.IndexFlatL2(dimension),
@@ -119,8 +119,8 @@ def create_vector_store(
                 vector_store.save_local(folder_path=output_path, index_name=index_name)
                 print("✅ [Success] (vector_db.create_vector_store) FAISS 벡터 DB 저장 완료")
 
-        elif db_type == "chroma":
-            print(f"📌 [Info] (vector_db.create_vector_store) 벡터 DB 유형: {db_type}")
+        elif vector_store_type == "chroma":
+            print(f"📌 [Info] (vector_db.create_vector_store) 벡터 DB 유형: {vector_store_type}")
             chroma_path = os.path.join(output_path, index_name)
             if os.path.exists(chroma_path):
                 shutil.rmtree(chroma_path)
@@ -135,7 +135,7 @@ def create_vector_store(
             print("✅ [Success] (vector_db.create_vector_store) Chroma 벡터 DB 저장 완료")
 
         else:
-            raise ValueError("❌ [Value] (vector_db.create_vector_store.db_type) 지원하지 않는 벡터 DB 타입 ('faiss' 또는 'chroma'만 가능)")
+            raise ValueError("❌ [Value] (vector_db.create_vector_store.vector_store_type) 지원하지 않는 벡터 DB 타입 ('faiss' 또는 'chroma'만 가능)")
 
         return vector_store
 
@@ -148,7 +148,7 @@ def load_vector_store(
     path: str,
     embeddings: Union[HuggingFaceEmbeddings, OpenAIEmbeddings],
     index_name: str,
-    db_type: str = "faiss"
+    vector_store_type: str = "faiss"
 ) -> Union[FAISS, Chroma]:
     """
     저장된 FAISS 또는 Chroma 벡터 DB를 로컬에서 로드합니다.
@@ -157,7 +157,7 @@ def load_vector_store(
         path (str): 벡터 DB 루트 디렉토리 경로
         embeddings (Union[HuggingFaceEmbeddings, OpenAIEmbeddings]): 초기화된 임베딩 객체
         index_name (str): 불러올 벡터 DB 인덱스 이름
-        db_type (str): 벡터 DB 유형 ('faiss' 또는 'chroma')
+        vector_store_type (str): 벡터 DB 유형 ('faiss' 또는 'chroma')
 
     Returns:
         Union[FAISS, Chroma]: 로드된 벡터 DB 인스턴스
@@ -176,17 +176,17 @@ def load_vector_store(
     if not index_name:
         raise ValueError("❌ [Value] (vector_db.load_vector_store.index_name) 빈 index_name 인자")
 
-    db_type = db_type.lower()
+    vector_store_type = vector_store_type.lower()
 
     try:
-        if db_type == "faiss":
+        if vector_store_type == "faiss":
             return FAISS.load_local(
                 folder_path=path,
                 index_name=index_name,
                 embeddings=embeddings,
                 allow_dangerous_deserialization=True,
             )
-        elif db_type == "chroma":
+        elif vector_store_type == "chroma":
             chroma_path = os.path.join(path, index_name)
             return Chroma(
                 embedding_function=embeddings,
@@ -194,7 +194,7 @@ def load_vector_store(
                 collection_name="chroma_db",
             )
         else:
-            raise ValueError(f"❌ [Value] (vector_db.load_vector_store.db_type) 지원하지 않는 벡터 DB 타입: {db_type}")
+            raise ValueError(f"❌ [Value] (vector_db.load_vector_store.vector_store_type) 지원하지 않는 벡터 DB 타입: {vector_store_type}")
 
     except Exception as e:
         raise RuntimeError(f"❌ [Runtime] (vector_db.load_vector_store.general) 벡터 DB 로드 실패 원인: {e}")

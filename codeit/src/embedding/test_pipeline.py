@@ -25,7 +25,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from src.settings import PROJECT_ROOT
-from src.embedding.vector_store import create_vector_store, load_vector_store
+from embedding.test_vector_store import create_vector_store, load_vector_store
 
 
 def generate_index_name(config: dict) -> str:
@@ -43,16 +43,16 @@ def generate_index_name(config: dict) -> str:
     """
     data_type = config.get("data", {}).get("file_type", "all")
     splitter = config.get("data", {}).get("splitter", "recursive")
-    model = config.get("embedding", {}).get("embed_model", "default")
-    db_type = config.get("embedding", {}).get("db_type", "faiss")
+    model_name = config.get("embedding", {}).get("embed_name", "default")
+    vector_store_type = config.get("embedding", {}).get("vector_store_type", "faiss")
 
-    model_key = model.split("/")[-1] if "/" in model else model
+    model_key = model_name.split("/")[-1] if "/" in model_name else model_name
     model_key = model_key.replace('-', '_').replace(' ', '_')
 
     if config.get('data', {}).get('top_k') == 100:
-        return f"{data_type}_{config['data']['top_k']}_{splitter}_{model_key}_{db_type}"
+        return f"{data_type}_{config['data']['top_k']}_{splitter}_{model_key}_{vector_store_type}"
     else:
-        return f"{data_type}_{splitter}_{model_key}_{db_type}"
+        return f"{data_type}_{splitter}_{model_key}_{vector_store_type}"
 
 
 @traceable(name="embedding_pipeline")  # LangSmith 추적 이름 명확하게
@@ -90,7 +90,7 @@ def run(
         raise ValueError("❌ (embedding.embedding_main.embeddings) 잘못된 embeddings 인자")
 
     embed_config = config['embedding']
-    db_type = embed_config['db_type'].lower()
+    vector_store_type = embed_config['vector_store_type'].lower()
     vector_store_path = os.path.join(PROJECT_ROOT, embed_config.get("vector_store_path", "data"))
 
     if not isinstance(vector_store_path, str) or vector_store_path.strip() == "":
@@ -103,12 +103,12 @@ def run(
     if not isinstance(index_name, str) or index_name.strip() == "":
         raise ValueError("❌ (embedding.embedding_main.index_name) 잘못된 index_name 생성")
 
-    if db_type == "faiss":
+    if vector_store_type == "faiss":
         faiss_file = os.path.join(vector_store_path, f"{index_name}.faiss")
         pkl_file = os.path.join(vector_store_path, f"{index_name}.pkl")
         db_exists = os.path.exists(faiss_file) and os.path.exists(pkl_file)
 
-    elif db_type == "chroma":
+    elif vector_store_type == "chroma":
         chroma_dir = os.path.join(vector_store_path, index_name)
         sqlite_path = os.path.join(chroma_dir, "chroma.sqlite3")
 
@@ -127,13 +127,13 @@ def run(
             db_exists = False
 
     else:
-        raise ValueError(f"❌ (embedding.embedding_main.db_type) 지원하지 않는 DB 타입입니다: {db_type}")
+        raise ValueError(f"❌ (embedding.embedding_main.vector_store_type) 지원하지 않는 DB 타입입니다: {vector_store_type}")
 
     if is_save:
-        vector_store = create_vector_store(chunks, embeddings, index_name, db_type, output_path=vector_store_path)
+        vector_store = create_vector_store(chunks, embeddings, index_name, vector_store_type, output_path=vector_store_path)
         print("✅ Vector DB 생성 완료")
     else:
-        vector_store = load_vector_store(vector_store_path, embeddings, index_name, db_type)
+        vector_store = load_vector_store(vector_store_path, embeddings, index_name, vector_store_type)
         print("✅ Vector DB 로드 완료")
 
     return vector_store
