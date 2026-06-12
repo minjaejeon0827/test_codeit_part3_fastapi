@@ -3,7 +3,7 @@ base.py - 모든 LLM 생성기 공통 인터페이스 (추상 클래스)
 
 전략 패턴(Strategy Pattern) 'Strategy' 역할:
 - 모든 생성기가 따라야 할 표준 규칙(공통 인터페이스) 정의
-- HFGenerator, OpenAIGenerator, ClaudeGenerator, GeminiGenerator 등은 해당 클래스 상속받아 구현
+- HFGenerator, OpenAIGenerator, ClaudeGenerator, GeminiGenerator, GroqGenerator 등은 해당 클래스 상속받아 구현
 
 전략 패턴 (Strategy Pattern)에서의 위치:
     BaseGenerator      ← 이 파일 (Strategy 인터페이스)
@@ -36,13 +36,13 @@ class BaseGenerator(ABC):
     """
     모든 LLM 생성기 추상 베이스 클래스.
     
-    🎯 사용 방법:
-        1) 해당 클래스 상속받음
-        2) load(), generate() 두 메서드 구현 필수!
+    * 사용 방법:
+       1) 해당 클래스 상속받음
+       2) load(), generate() 두 메서드 구현 필수!
     
-    🌟 전략 패턴의 의미:
-        - "답변을 생성한다"는 행위는 같지만,
-        - "어떻게(HuggingFace? OpenAI?) 생성하느냐"는 자식 클래스가 결정
+    * 전략 패턴 의미:
+       - "답변을 생성한다"는 행위는 같지만,
+       - "어떻게(HuggingFace? OpenAI?) 생성하느냐"는 자식 클래스가 결정
     """
     
     @abstractmethod
