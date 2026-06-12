@@ -54,8 +54,8 @@ class EmbeddingConfig(BaseModel):
     """[embedding] 섹션 - 임베딩/벡터DB 설정"""
     model_config = ConfigDict(extra="forbid")
 
-    embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    db_type: Literal["faiss", "chroma"] = "faiss"
+    embed_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    vector_store_type: Literal["faiss", "chroma"] = "faiss"
     vector_store_path: str = "data/vector_store"
 
 
