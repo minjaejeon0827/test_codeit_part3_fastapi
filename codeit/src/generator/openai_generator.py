@@ -34,16 +34,16 @@ class OpenAIGenerator(BaseGenerator):
     """
     OpenAI Chat Completions API 사용한 답변 생성기.
     
-    *  주요 기능:
-        - OpenAI API 클라이언트 초기화 (API 키 검증 포함)
-        - GPT-4, GPT-4.1-nano 등 다양한 모델 지원
-        - 답변 생성 + 자동 후처리
-        - LangSmith 추적 통합
+    * 주요 기능:
+       - OpenAI API 클라이언트 초기화 (API 키 검증 포함)
+       - GPT-4, GPT-4.1-nano 등 다양한 모델 지원
+       - 답변 생성 + 자동 후처리
+       - LangSmith 추적 통합
     
-    *  사용 예시:
-        >>> generator = OpenAIGenerator()
-        >>> generator.load(config)
-        >>> answer = generator.generate("질문: ...", {"max_length": 512})
+    * 사용 예시:
+       >>> generator = OpenAIGenerator()
+       >>> generator.load(config)
+       >>> answer = generator.generate("질문: ...", {"max_length": 512})
     """
     
     def __init__(self):
