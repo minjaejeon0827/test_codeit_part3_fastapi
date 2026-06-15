@@ -9,9 +9,8 @@ base.py - 모든 임베딩 모델 공통 인터페이스 (추상 클래스)
     BaseEmbedding      ← 이 파일 (Strategy 인터페이스)
         ├── HFEmbedding         (로컬 GPU)
         ├── OpenAIEmbedding     (유료 API)
-        ├── ClaudeEmbedding     (필요 시 구현 예정!)
-        ├── GeminiEmbedding     (필요 시 구현 예정!)
-        └── GroqEmbedding       (필요 시 구현 예정!)
+        ├── OllamaEmbedding     (로컬, 무료)
+        └── GeminiEmbedding     (무료 티어 API)
 
 플랫폼별 임베딩 모델 종류
 참고: https://docs.langchain.com/oss/python/integrations/embeddings#top-integrations
