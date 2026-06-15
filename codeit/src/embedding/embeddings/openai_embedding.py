@@ -62,7 +62,7 @@ class OpenAIEmbedding(BaseEmbedding):
         OpenAI 임베딩 모델 초기화.
         
         Args:
-            config: config["embedding"]에서 model_name 사용
+            config: config["embedding"]["embed_name"] 사용
         
         Raises:
             ValueError: OPENAI_API_KEY 환경변수 없을 때
@@ -91,11 +91,11 @@ class OpenAIEmbedding(BaseEmbedding):
     def get_model(self) -> OpenAIEmbeddings:
         """초기화 된 LangChain OpenAIEmbeddings 객체 반환."""
         if self.model is None:
-            raise RuntimeError("❌ load() 먼저 호출해주세요.")
+            raise RuntimeError("❌ OpenAIEmbedding.get_model(): load() 먼저 호출해주세요.")
         return self.model
     
     def get_dimension(self) -> int:
-        """모델별 차원 반환 (매핑표 사용)."""
+        """모델별 차원 반환 (매핑표 사용 + 폴백)."""
         if self.model_name in self._DIMENSION_MAP:
             return self._DIMENSION_MAP[self.model_name]
         
