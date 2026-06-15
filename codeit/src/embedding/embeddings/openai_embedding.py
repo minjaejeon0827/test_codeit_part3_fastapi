@@ -8,9 +8,8 @@ BaseEmbedding 클래스 상속받아 OpenAI 임베딩 모델 사용.(text-embedd
     BaseEmbedding               (Strategy 인터페이스)
         ├── HFEmbedding         (로컬 GPU)
         ├── OpenAIEmbedding     ← 이 파일 (유료 API)
-        ├── ClaudeEmbedding     (필요 시 구현 예정!)
-        ├── GeminiEmbedding     (필요 시 구현 예정!)
-        └── GroqEmbedding       (필요 시 구현 예정!)
+        ├── OllamaEmbedding     (로컬, 무료)
+        └── GeminiEmbedding     (무료 티어 API)
 
 설치 필요 패키지:
     pip install openai
