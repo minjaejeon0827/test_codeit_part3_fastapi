@@ -18,15 +18,19 @@ from typing import Dict
 from src.embedding.embeddings.base import BaseEmbedding
 from src.embedding.embeddings.openai_embedding import OpenAIEmbedding
 from src.embedding.embeddings.hf_embedding import HFEmbedding
+from src.embedding.embeddings.ollama_embedding import OllamaEmbedding
+from src.embedding.embeddings.gemini_embedding import GeminiEmbedding
+
 
 # "임베딩 모델 타입 문자열 → 클래스" 매핑표
 # 임베딩 모델 새로 추가 시 클래스 import + _EMBEDDINGS 딕셔너리 객체 한 줄 추가!
 _EMBEDDINGS: Dict[str, type] = {
     "openai": OpenAIEmbedding,
     "huggingface": HFEmbedding,
+    "ollama": OllamaEmbedding,
+    "gemini": GeminiEmbedding,
     # TODO: 추후 필요시 아래 주석친 코드 사용 예정(2026.06.12 minjae)
     # "claude": ClaudeEmbedding,
-    # "gemini": GeminiEmbedding,
     # "groq": GroqEmbedding,
 }
 
