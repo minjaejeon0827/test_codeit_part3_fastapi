@@ -70,7 +70,7 @@ class HFEmbedding(BaseEmbedding):
         임베딩 벡터 차원 동적 계산 + 캐싱 (한 번만 계산, 이후 캐싱).
         
         * 캐싱 이유: embed_query는 실제 API/모델 호출이라 비용 발생.
-           한 번 계산 후 인스턴스에 저장해서 재사용.
+                    한 번 계산 후 인스턴스에 저장해서 재사용.
         """
         if self._dimension is None:
             self._dimension = len(self.model.embed_query("hello world"))
