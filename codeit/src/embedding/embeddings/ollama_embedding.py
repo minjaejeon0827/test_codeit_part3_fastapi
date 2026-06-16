@@ -16,7 +16,8 @@ BaseEmbedding 클래스 상속받아 Ollama 로컬 임베딩 모델 사용.
         ├── HFEmbedding         (로컬 GPU)
         ├── OpenAIEmbedding     (유료 API)
         ├── OllamaEmbedding     ← 이 파일 (로컬, 무료)
-        └── GeminiEmbedding     (무료 티어 API)
+        ├── GeminiEmbedding     (무료 티어 API)
+        └── CohereEmbedding     (RAG 특화 API)
 
 Ollama 사전 준비:
     1) Ollama 설치 (https://ollama.com/download)
