@@ -9,7 +9,8 @@ BaseEmbedding 클래스 상속받아 HuggingFace 임베딩 모델 사용. (KoE5,
         ├── HFEmbedding         ← 이 파일 (로컬 GPU)
         ├── OpenAIEmbedding     (유료 API)
         ├── OllamaEmbedding     (로컬, 무료)
-        └── GeminiEmbedding     (무료 티어 API)
+        ├── GeminiEmbedding     (무료 티어 API)
+        └── CohereEmbedding     (RAG 특화 API)
 
 플랫폼별 임베딩 모델 종류 
 참고: https://docs.langchain.com/oss/python/integrations/embeddings#top-integrations
