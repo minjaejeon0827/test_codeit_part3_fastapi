@@ -10,7 +10,8 @@ base.py - 모든 임베딩 모델 공통 인터페이스 (추상 클래스)
         ├── HFEmbedding         (로컬 GPU)
         ├── OpenAIEmbedding     (유료 API)
         ├── OllamaEmbedding     (로컬, 무료)
-        └── GeminiEmbedding     (무료 티어 API)
+        ├── GeminiEmbedding     (무료 티어 API)
+        └── CohereEmbedding     (RAG 특화 API)
 
 플랫폼별 임베딩 모델 종류
 참고: https://docs.langchain.com/oss/python/integrations/embeddings#top-integrations
