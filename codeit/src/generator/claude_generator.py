@@ -10,7 +10,8 @@ BaseGenerator 클래스 상속받아 Anthropic Messages API로
         ├── OpenAIGenerator     (유료 API)
         ├── ClaudeGenerator     ← 이 파일 (유료 API)
         ├── GeminiGenerator     (무료 티어 있음)
-        └── GroqGenerator       (무료 + 초고속)
+        ├── GroqGenerator       (무료 + 초고속)
+        └── OllamaGenerator     (무료, 로컬/원격 서버)
 
 *  OpenAI와 주요 차이점:
     - API 메서드: client.messages.create() (vs OpenAI: client.chat.completions.create())
