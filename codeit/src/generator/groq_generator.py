@@ -4,7 +4,7 @@ groq_generator.py - Groq 클라우드 기반 답변 생성기
 BaseGenerator 클래스 상속받아 Groq API로 답변 생성하는 
 전략 패턴(Strategy Pattern) 기반 클래스.
 
-*  Groq의 강점:
+*  Groq 강점:
     - 초고속 추론 속도 (자체 LPU 하드웨어 사용, 토큰당 ~700+ tokens/sec)
     - 무료 티어 매우 넉넉함 (분당 30 요청, 일일 14,400 요청)
     - LLaMA 3.1, Mixtral 등 오픈소스 모델 무료 제공
