@@ -5,7 +5,7 @@ BaseEmbedding 클래스 상속받아 Ollama 로컬 임베딩 모델 사용.
 (nomic-embed-text, mxbai-embed-large 등)
 전략 패턴 (Strategy Pattern) 기반 클래스.
 
-* Ollama의 강점:
+* Ollama 강점:
     - 완전 무료 (로컬 실행)
     - API 키 불필요
     - 데이터 외부로 안 나감 (보안 좋음)
