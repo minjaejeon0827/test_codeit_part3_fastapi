@@ -10,7 +10,8 @@ BaseGenerator 클래스 상속받아 OpenAI Chat Completions API로
         ├── OpenAIGenerator     ← 이 파일 (유료 API)
         ├── ClaudeGenerator     (유료 API)
         ├── GeminiGenerator     (무료 티어 있음)
-        └── GroqGenerator       (무료 + 초고속)
+        ├── GroqGenerator       (무료 + 초고속)
+        └── OllamaGenerator     (무료, 로컬/원격 서버)
 
 설치 필요 패키지:
     pip install openai
