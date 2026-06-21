@@ -10,7 +10,8 @@ BaseGenerator 클래스 상속받아 Google GenAI API로
         ├── OpenAIGenerator     (유료 API)
         ├── ClaudeGenerator     (유료 API)
         ├── GeminiGenerator     ← 이 파일 (무료 티어 있음)
-        └── GroqGenerator       (무료 + 초고속)
+        ├── GroqGenerator       (무료 + 초고속)
+        └── OllamaGenerator     (무료, 로컬/원격 서버)
 
 *  OpenAI/Claude와의 주요 차이점:
     - SDK 패키지: google-genai (2025년 신규 SDK, 이전 google-generativeai 대체)
