@@ -10,7 +10,8 @@ BaseGenerator 클래스 상속받아 HuggingFace 트랜스포머 모델로
         ├── OpenAIGenerator     (유료 API)
         ├── ClaudeGenerator     (유료 API)
         ├── GeminiGenerator     (무료 티어 있음)
-        └── GroqGenerator       (무료 + 초고속)
+        ├── GroqGenerator       (무료 + 초고속)
+        └── OllamaGenerator     (무료, 로컬/원격 서버)
 
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
