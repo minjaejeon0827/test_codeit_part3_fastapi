@@ -69,6 +69,7 @@ class OllamaEmbedding(BaseEmbedding):
     def __init__(self):
         self.model = None
         self.model_name = None
+        self.base_url = None
         self._dimension = None  # 차원 캐싱
     
     def load(self, config: Dict) -> None:
@@ -88,11 +89,11 @@ class OllamaEmbedding(BaseEmbedding):
         #      - 없으면 기본값 localhost 사용        
         # base_url 선택 (기본: http://localhost:11434)
         # base_url = config["embedding"].get("ollama_base_url", "http://localhost:11434")
-        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-        
+        self.base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+
         self.model = OllamaEmbeddings(
             model=self.model_name,
-            base_url=base_url,
+            base_url=self.base_url,
         )
         logger.info(f"✅ Ollama 임베딩 로딩 완료: {self.model_name}")
     
