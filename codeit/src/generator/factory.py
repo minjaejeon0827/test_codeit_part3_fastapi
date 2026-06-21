@@ -21,7 +21,7 @@ from src.generator.openai_generator import OpenAIGenerator
 from src.generator.claude_generator import ClaudeGenerator
 from src.generator.gemini_generator import GeminiGenerator
 from src.generator.groq_generator import GroqGenerator
-
+from src.generator.ollama_generator import OllamaGenerator
 
 # "모델 타입 문자열 → 클래스" 매핑표
 _GENERATORS: Dict[str, type] = {
@@ -30,8 +30,8 @@ _GENERATORS: Dict[str, type] = {
     "claude": ClaudeGenerator,
     "gemini": GeminiGenerator,
     "groq": GroqGenerator,
+    "ollama": OllamaGenerator,
 }
-
 
 def create_generator(config: Dict) -> BaseGenerator:
     """
