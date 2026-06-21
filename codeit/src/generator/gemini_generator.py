@@ -13,7 +13,7 @@ BaseGenerator 클래스 상속받아 Google GenAI API로
         ├── GroqGenerator       (무료 + 초고속)
         └── OllamaGenerator     (무료, 로컬/원격 서버)
 
-*  OpenAI/Claude와의 주요 차이점:
+*  OpenAI/Claude 주요 차이점:
     - SDK 패키지: google-genai (2025년 신규 SDK, 이전 google-generativeai 대체)
     - API 메서드: client.models.generate_content()
     - 응답 구조: response.text
