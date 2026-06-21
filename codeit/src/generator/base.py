@@ -11,7 +11,8 @@ base.py - 모든 LLM 생성기 공통 인터페이스 (추상 클래스)
         ├── OpenAIGenerator     (유료 API)
         ├── ClaudeGenerator     (유료 API)
         ├── GeminiGenerator     (무료 티어 있음)
-        └── GroqGenerator       (무료 + 초고속)
+        ├── GroqGenerator       (무료 + 초고속)
+        └── OllamaGenerator     (무료, 로컬/원격 서버)
 
 파이썬 디자인 패턴 -> 행위 패턴 -> 전략 패턴 (Strategy Pattern)
 참고: https://wikidocs.net/252293
