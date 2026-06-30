@@ -14,7 +14,7 @@ data:  # 데이터
 
 embedding:  # 임베딩
     embed_type: "openai"                       # 제공업체: "openai", "huggingface", "ollama", "gemini" 등.
-    embed_name: "text-embedding-3-large"       # 모델 이름: HuggingFace 모델명 (예: "nlpai-lab/KoE5", "nomic-embed-text", "gemini-embedding-001")
+    embed_name: "text-embedding-3-large"       # 모델 이름: HuggingFace 모델명 (예: "nlpai-lab/KoE5", "BAAI/bge-m3", "nomic-embed-text", "gemini-embedding-001")
     # TODO: embed_dimension 필요 시 사용 예정(2026.06.15 minjae)
     # embed_dimension: 768                  # (선택) MRL로 차원 축소 시
     vector_store_type: "faiss"                 # 벡터 DB 종류: "faiss" 또는 "chroma"
